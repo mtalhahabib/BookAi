@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 List<String> titles = <String>[
   '1st Year',
   '2nd Year',
+  'My Books'
 ];
 
 class HomePage extends StatelessWidget {
@@ -20,7 +21,7 @@ class HomePage extends StatelessWidget {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final Color oddItemColor = colorScheme.primary.withOpacity(0.05);
     final Color evenItemColor = colorScheme.primary.withOpacity(0.15);
-    const int tabsCount = 2;
+    const int tabsCount = 3;
 
     return DefaultTabController(
       initialIndex: 1,
@@ -48,6 +49,11 @@ class HomePage extends StatelessWidget {
               Tab(
                 icon: const Icon(Icons.library_books),
                 text: titles[1],
+              ),
+              
+              Tab(
+                icon: const Icon(Icons.upload),
+                text: titles[2],
               ),
             ],
           ),
@@ -144,6 +150,16 @@ class HomePage extends StatelessWidget {
                       );
                     },
                   ),
+               Center(child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(onPressed: (){}, icon: Icon(Icons.upload)),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text('Upload Your Own Books')
+                ],
+               ),)
                 ],
               ),
               controller.isloading.value == true

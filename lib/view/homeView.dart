@@ -12,12 +12,11 @@ List<String> titles = <String>[
 ];
 
 class HomePage extends StatelessWidget {
-   HomePage({super.key});
-  
+  HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    
-final controller=Get.put(HomeViewModel());
+    final controller = Get.put(HomeViewModel());
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final Color oddItemColor = colorScheme.primary.withOpacity(0.05);
     final Color evenItemColor = colorScheme.primary.withOpacity(0.15);
@@ -54,8 +53,7 @@ final controller=Get.put(HomeViewModel());
           ),
         ),
         body: Obx(
-          ()=>
-           Stack(
+          () => Stack(
             children: [
               TabBarView(
                 children: <Widget>[
@@ -64,32 +62,37 @@ final controller=Get.put(HomeViewModel());
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         onTap: () async {
-                          controller.isloading.value=true;
-                          var status=await controller.checkKeyExists(data['11']![index]['url']);
-                          if(status==true){
+                          controller.isloading.value = true;
+                          var status = await controller
+                              .checkKeyExists(data['11']![index]['url']);
+                          if (status == true) {
                             Get.snackbar('Wait', 'File is opening');
-                           String memoryPath=await  controller.getPath(data['11']![index]['url']);
-                           final file = File(memoryPath);
-                            final path=await file.readAsBytes();
-                            controller.isloading.value=false;
+                            String memoryPath = await controller
+                                .getPath(data['11']![index]['url']);
+                            final file = File(memoryPath);
+                            final path = await file.readAsBytes();
+                            controller.isloading.value = false;
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => PdfViewPage(
-                                          subject: data['11']![index]['subject'],
+                                          subject: data['11']![index]
+                                              ['subject'],
                                           url: path,
                                         )));
-                            }
-                            else{
-                              Get.snackbar('Downloading', 'Please wait, file is downloading');
-                             await controller.downloadFile(data['11']![index]['url']);
-                            
-                            controller.isloading.value=false;
-                            }
+                          } else {
+                            Get.snackbar('Downloading',
+                                'Please wait, file is downloading');
+                            await controller
+                                .downloadFile(data['11']![index]['url']);
+
+                            controller.isloading.value = false;
+                          }
                         },
                         leading: const Icon(Icons.menu_book),
                         tileColor: index.isOdd ? oddItemColor : evenItemColor,
-                        title: Text('1st Year ${data['11']![index]['subject']} '),
+                        title:
+                            Text('1st Year ${data['11']![index]['subject']} '),
                         // trailing:
                         //  IconButton(
                         //   icon:controller.checkKeyExists(data['11']![index]['url'])==true?SizedBox(): Icon(Icons.download),
@@ -103,35 +106,37 @@ final controller=Get.put(HomeViewModel());
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         onTap: () async {
-                          var status=await controller.checkKeyExists(data['12']![index]['url']);
-                          if(status==true){
-                             Get.snackbar('Wait', 'File is opening');
-                           String memoryPath=await  controller.getPath(data['12']![index]['url']);
-                           final file = File(memoryPath);
-                            final path=await file.readAsBytes();
-                            controller.isloading.value=false;
+                          controller.isloading.value = true; 
+                          var status = await controller
+                              .checkKeyExists(data['12']![index]['url']);
+                          if (status == true) {
+                            Get.snackbar('Wait', 'File is opening');
+                            String memoryPath = await controller
+                                .getPath(data['12']![index]['url']);
+                            final file = File(memoryPath);
+                            final path = await file.readAsBytes();
+                            controller.isloading.value = false;
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => PdfViewPage(
-                                          subject: data['12']![index]['subject'],
+                                          subject: data['12']![index]
+                                              ['subject'],
                                           url: path,
                                         )));
-                            
-                            }
-                            else{
-                              
-                              Get.snackbar('Downloading', 'Please wait, file is downloading');
-                             await controller.downloadFile(data['11']![index]['url']);
-                            
-                            controller.isloading.value=false;
-                            
-                            }
-                         
+                          } else {
+                            Get.snackbar('Downloading',
+                                'Please wait, file is downloading');
+                            await controller
+                                .downloadFile(data['12']![index]['url']);
+
+                            controller.isloading.value = false;
+                          }
                         },
                         leading: const Icon(Icons.menu_book),
                         tileColor: index.isOdd ? oddItemColor : evenItemColor,
-                        title: Text('2nd Year ${data['12']![index]['subject']}'),
+                        title:
+                            Text('2nd Year ${data['12']![index]['subject']}'),
                         // trailing: IconButton(
                         //   icon:controller.checkKeyExists(data['12']![index]['url'])==true?SizedBox(): Icon(Icons.download),
                         //  onPressed: (){},
@@ -141,7 +146,9 @@ final controller=Get.put(HomeViewModel());
                   ),
                 ],
               ),
-                 controller.isloading.value==true?Center(child: CircularProgressIndicator()):SizedBox(),
+              controller.isloading.value == true
+                  ? Center(child: CircularProgressIndicator())
+                  : SizedBox(),
             ],
           ),
         ),

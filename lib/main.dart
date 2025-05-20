@@ -8,8 +8,9 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 main() {
-  Gemini.init(apiKey: 'AIzaSyC2N0lcgxXbxvcNpi-Gswucj2AE4VaFHl8');
+  Gemini.init(apiKey: 'AIzaSyAN10TLWtEr_wdS41qhHMIxacFlfe8fxko');
   runApp(const MyApp());
+  
 }
 
 class MyApp extends StatelessWidget {
